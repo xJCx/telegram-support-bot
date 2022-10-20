@@ -20,6 +20,7 @@ def faq(update, context):
     update.message.reply_text(FAQ_MESSAGE)
 
 def question(update, context):
+    update.message.reply_text(QUESTION_MESSAGE)
 
 def forward_to_chat(update, context):
     """{ 
