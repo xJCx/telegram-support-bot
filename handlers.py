@@ -1,7 +1,7 @@
 import os
 from telegram.ext import CommandHandler, MessageHandler, Filters
 
-from settings import WELCOME_MESSAGE, TELEGRAM_SUPPORT_CHAT_ID, REPLY_TO_THIS_MESSAGE, WRONG_REPLY
+from settings import WELCOME_MESSAGE, TELEGRAM_SUPPORT_CHAT_ID, REPLY_TO_THIS_MESSAGE, WRONG_REPLY, FAQ_MESSAGE, QUESTION_MESSAGE
 
 
 def start(update, context):
@@ -15,7 +15,11 @@ def start(update, context):
 📞 Connected {user_info}.
         """,
     )
+    
+def faq(update, context):
+    update.message.reply_text(FAQ_MESSAGE)
 
+def question(update, context):
 
 def forward_to_chat(update, context):
     """{ 
@@ -74,6 +78,8 @@ def forward_to_user(update, context):
 
 def setup_dispatcher(dp):
     dp.add_handler(CommandHandler('start', start))
+    dp.add_handler(CommandHandler('faq', faq))
+    dp.add_handler(CommandHandler('question', question))
     dp.add_handler(MessageHandler(Filters.chat_type.private, forward_to_chat))
     dp.add_handler(MessageHandler(Filters.chat(TELEGRAM_SUPPORT_CHAT_ID) & Filters.reply, forward_to_user))
     return dp
